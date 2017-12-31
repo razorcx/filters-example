@@ -48,12 +48,15 @@ namespace Filters
 
 		private void buttonFilter_Click(object sender, EventArgs e)
 		{
+			ModelObjectVisualization.ClearAllTemporaryStates();
+
 			var phaseViews = dataGridViewPhases.Rows
 				.OfType<DataGridViewRow>()
 				.Select(r => r.DataBoundItem as PhaseView)
 				.ToList();
 
 			var visible = phaseViews.Where(p => p.Visible).ToList();
+			if (!visible.Any()) return;
 
 			ModelObjectVisualization.SetTransparencyForAll(TemporaryTransparency.TRANSPARENT);
 
@@ -63,16 +66,12 @@ namespace Filters
 			PartFilterExpressions.Name partName = new PartFilterExpressions.Name();
 			StringConstantFilterExpression name = new StringConstantFilterExpression(listBoxName.SelectedItem.ToString());
 
-			//ObjectFilterExpressions.Phase objectPhase = new ObjectFilterExpressions.Phase();
-			//NumericConstantFilterExpression phase = new NumericConstantFilterExpression(p.Number);
-			//var expression1 = new BinaryFilterExpression(objectPhase, NumericOperatorType.IS_EQUAL, phase);
 			var expression2 = new BinaryFilterExpression(objectType, NumericOperatorType.IS_EQUAL, type);
 			var expression3 = new BinaryFilterExpression(partName, StringOperatorType.STARTS_WITH, name);
 
 			BinaryFilterExpressionCollection filterCollection =
 				new BinaryFilterExpressionCollection
 				{
-					//new BinaryFilterExpressionItem(expression1),
 					new BinaryFilterExpressionItem(expression2, BinaryFilterOperatorType.BOOLEAN_AND),
 				};
 
@@ -119,12 +118,16 @@ namespace Filters
 				{16, new Color(0, 0, .75)},
 				{17, new Color(.75, .75, 0)},
 				{18, new Color(.75, .75, .75)},
-				{19, new Color(0, .3, 0)},
-				{20, new Color(0, 0, .3)},
-				{21, new Color(.3, 0, .3)},
-				{22, new Color(0, .3, .3)},
-				{23, new Color(0, .3, .5)},
-				{99, new Color(.5, .3, .5)},
+				{19, new Color(1, .3, 0)},
+				{20, new Color(1, 0, .3)},
+				{21, new Color(.3, 1, .3)},
+				{22, new Color(1, .3, .3)},
+				{23, new Color(1, .3, .5)},
+				{99, new Color(.5, 1, .5)},
+				{100, new Color(1, .3, .5)},
+				{101, new Color(1, .3, 0)},
+				{9999, new Color(1, .3, 1)},
+				{10000, new Color(1, 1, .5)},
 			};
 		}
 

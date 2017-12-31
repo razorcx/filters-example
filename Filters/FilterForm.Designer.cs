@@ -113,6 +113,7 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "FilterForm";
 			this.Text = "Filters Example";
+			this.TopMost = true;
 			this.Load += new System.EventHandler(this.FilterForm_Load);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewPhases)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
